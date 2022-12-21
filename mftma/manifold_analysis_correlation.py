@@ -427,8 +427,8 @@ def CGmanopt(X, objective_function, A, **kwargs):
     def cost(X):
         c, _ = objective_function(X, A)
         return c
-    problem = Problem(manifold=manifold, cost=cost, verbosity=0)
-    solver = ConjugateGradient(logverbosity=0)
+    problem = Problem(manifold=manifold, cost=cost)
+    solver = ConjugateGradient()
     Xopt = solver.solve(problem)
     return Xopt, None
 
