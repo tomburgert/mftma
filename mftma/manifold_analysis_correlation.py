@@ -13,7 +13,7 @@ from functools import partial
 from cvxopt import solvers, matrix
 from pymanopt.manifolds import Stiefel
 from pymanopt import Problem
-from pymanopt.solvers import ConjugateGradient
+from pymanopt.optimizers import ConjugateGradient
 
 # Configure cvxopt solvers
 solvers.options['show_progress'] = False
