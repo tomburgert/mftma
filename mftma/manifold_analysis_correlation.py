@@ -352,6 +352,11 @@ def fun_FA(centers, maxK, max_iter, n_repeats, s_all=None, verbose=False, conjug
 
             # Compute the optimal V for this i
             V1tmp, output = CGmanopt(V0, partial(square_corrcoeff_full_cost, grad=False), X, **opts)
+            
+            if type(V1tmp) is np.ndarray:
+                pass
+            else:
+                V1tmp = V1tmp.point
 
             # Compute the cost
             cost_after, _ = square_corrcoeff_full_cost(V1tmp, X, grad=False)
@@ -424,12 +429,13 @@ def CGmanopt(X, objective_function, A, **kwargs):
     '''
 
     manifold = Stiefel(X.shape[0], X.shape[1])
+    @pymanopt.function.autograd(manifold)
     def cost(X):
         c, _ = objective_function(X, A)
         return c
     problem = Problem(manifold=manifold, cost=cost)
     solver = ConjugateGradient()
-    Xopt = solver.solve(problem)
+    Xopt = solver.run(problem)
     return Xopt, None
 
 
@@ -508,3 +514,4 @@ def proj(v1, v2):
     '''
     v = np.dot(v1.T, v2)/np.dot(v1.T, v1) * v1
     return v
+
