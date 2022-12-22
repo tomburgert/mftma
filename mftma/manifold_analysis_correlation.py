@@ -11,6 +11,7 @@ from scipy.linalg import qr
 from functools import partial
 
 from cvxopt import solvers, matrix
+import pymanopt
 from pymanopt.manifolds import Stiefel
 from pymanopt import Problem
 from pymanopt.optimizers import ConjugateGradient
